@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Nối Realtime || THCS Cự Khê</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="../../Ket_noi/chat.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <span class="school-name">Hộp Thư Kết Nối Hệ Thống</span>
+            <nav class="nav-links">
+                <a href="../../../../index.html">Trang chủ</a>
+                <a href="dien_dan.html">Diễn đàn</a>
+                <a href="ket_noi.html" class="active">Kết Nối</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content chat-window-layout">
+        <div class="chat-sidebar">
+            <button class="btn-create-group" id="btnGroupOpen">➕ Lập nhóm chat (>2 người)</button>
+            <div class="chat-list" id="groupRoomsContainer">
+                </div>
+        </div>
+
+        <div class="chat-box-area">
+            <div class="chat-box-header" id="activeRoomTitle">Chọn một phòng để trò chuyện</div>
+            <div class="chat-messages-body" id="chatMessagesBox"></div>
+            <div class="chat-footer-input">
+                <input type="text" id="chatMsgInput" placeholder="Nhập nội dung...">
+                <button id="btnSendChat">Gửi</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-group" id="grpModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Tạo phòng chat mới</h3>
+            <input type="text" id="newGrpName" placeholder="Tên nhóm chat...">
+            <div style="margin-top:15px; display:flex; justify-content:flex-end; gap:10px;">
+                <button id="btnCancelGrp" style="background:#ccc; padding:6px; border:none; border-radius:4px; cursor:pointer;">Hủy</button>
+                <button id="btnConfirmGrp" style="background:#0056b3; color:white; padding:6px; border:none; border-radius:4px; cursor:pointer;">Tạo phòng</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../../Ket_noi/chat.js"></script>
+</body>
+</html>

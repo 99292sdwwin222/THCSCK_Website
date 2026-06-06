@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký || THCS Cự Khê</title>
+    <link rel="stylesheet" href="dk.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>ĐĂNG KÝ THÀNH VIÊN</h2>
+            <form id="dkForm">
+                <div class="layout-grid">
+                    <div class="left-avt">
+                        <div class="avt-frame" id="avtFrame">
+                            <img id="imgView" src="../../../Icons/avtreg.png" alt="Avatar">
+                        </div>
+                        <label for="fileInp" class="lbl-upload">Tải ảnh lên</label>
+                        <input type="file" id="fileInp" accept="image/*" style="display:none;">
+                    </div>
+                    <div class="right-fields">
+                        <div class="control" id="ctrlUser">
+                            <label>Tên đăng nhập (Chỉ dùng số, chữ, _ và .):</label>
+                            <input type="text" id="inpUser" required>
+                        </div>
+                        <div class="control">
+                            <label>Tên hiển thị (Có thể dùng emoji và ký tự đặc biệt):</label>
+                            <input type="text" id="inpDisplay" required>
+                        </div>
+                        <div class="control">
+                            <label>Email hoặc số điện thoại (nếu có):</label>
+                            <input type="text" id="inpContact">
+                        </div>
+                        <div class="control">
+                            <label>Mật khẩu:</label>
+                            <input type="password" id="inpPass" required>
+                            <span class="strength" id="lblStrength">Mật khẩu (Chưa nhập)</span>
+                        </div>
+                        <div class="control" id="ctrlConfirm">
+                            <label>Xác nhận mật khẩu:</label>
+                            <input type="password" id="inpConfirm" required>
+                        </div>
+                        <div class="control">
+                            <label style="color:#d9534f;">Mã PIN (Bảo mật cao - Không chia sẻ):</label>
+                            <input type="password" id="inpPin" maxlength="6" required placeholder="Nhập 4-6 chữ số">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="dk.js"></script>
+</body>
+</html>

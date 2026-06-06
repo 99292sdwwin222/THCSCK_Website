@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập || THCS Cự Khê</title>
+    <link rel="stylesheet" href="../Dangki/dk.css">
+</head>
+<body>
+    <div class="container" style="max-width: 400px;">
+        <div class="card">
+            <h2>ĐĂNG NHẬP</h2>
+            <form id="dnForm">
+                <div class="control">
+                    <label>Tên đăng nhập:</label>
+                    <input type="text" id="dnUser" required>
+                </div>
+                <div class="control">
+                    <label>Mật khẩu:</label>
+                    <input type="password" id="dnPass" required>
+                </div>
+                <div class="control">
+                    <label>Mã PIN:</label>
+                    <input type="password" id="dnPin" maxlength="6" required>
+                </div>
+                <button type="submit" class="btn-submit">ĐĂNG NHẬP</button>
+            </form>
+            <p style="text-align:center; margin-top:10px; font-size:0.85rem;">Chưa có tài khoản? <a href="../Dangki/dk.html">Đăng ký ngay</a></p>
+        </div>
+    </div>
+    <script type="module" src="dn.js"></script>
+</body>
+</html>
