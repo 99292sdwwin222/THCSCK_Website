@@ -7,73 +7,87 @@ const firebaseConfig = {
   projectId: "thcsck-website",
   storageBucket: "thcsck-website.firebasestorage.app",
   messagingSenderId: "2526504564",
-  appId: "1:2526504564:web:7c6b25a314f029c1a0d321"
+  appId: "1:2526504564:web:7c6b25a314f029c1a0d321",
+  measurementId: "G-0WKFR8CJ09"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const inpUser = document.getElementById("inpUser");
-const inpPass = document.getElementById("inpPass");
-const inpConfirm = document.getElementById("inpConfirm");
-const lblStrength = document.getElementById("lblStrength");
-const fileInp = document.getElementById("fileInp");
-const imgView = document.getElementById("imgView");
-let strAvt = "";
+// Nhúng hàm thông báo để sử dụng trong file này
+function showToastTop(message, type = "success") {
+    const container = document.getElementById("toast-container-top");
+    if (!container) return;
+    const toast = document.createElement("div");
+    toast.className = `toast-top ${type}`;
+    toast.innerHTML = `<span>${message}</span><div class="toast-progress"></div>`;
+    container.appendChild(toast);
+    setTimeout(() => { toast.remove(); }, 4000);
+}
 
-// Đổi ảnh cục bộ
-fileInp.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        const r = new FileReader();
-        r.onload = (ev) => { imgView.src = ev.target.result; strAvt = ev.target.result; };
-        r.readAsDataURL(file);
-    }
-});
+function showModalCenter(title, message, type = "success") {
+    const overlay = document.createElement("div");
+    overlay.className = "modal-notify-overlay";
+    const iconHtml = type === "success" ? "✓" : "✕";
+    overlay.innerHTML = `
+        <div class="modal-notify-card ${type}">
+            <button class="modal-notify-close-x" id="modalCloseX">×</button>
+            <div class="modal-notify-icon">${iconHtml}</div>
+            <div class="modal-notify-title">${title}</div>
+            <div class="modal-notify-text">${message}</div>
+            <button class="modal-notify-btn" id="modalCloseBtn">Đóng</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    const closeModal = () => { overlay.remove(); clearTimeout(autoCloseTimeout); };
+    overlay.querySelector("#modalCloseX").addEventListener("click", closeModal);
+    overlay.querySelector("#modalCloseBtn").addEventListener("click", closeModal);
+    const autoCloseTimeout = setTimeout(closeModal, 4000);
+}
 
-// Kiểm tra định dạng tên đăng nhập
-inpUser.addEventListener("input", () => {
-    const res = /^[a-zA-Z0-9_.]+$/.test(inpUser.value);
-    document.getElementById("ctrlUser").className = res ? "control dung" : "control sai";
-});
-
-// Đánh giá mật khẩu
-inpPass.addEventListener("input", () => {
-    let v = inpPass.value;
-    if(v.length < 5) { lblStrength.innerText = "Mật khẩu: Yếu ❌"; lblStrength.style.color="red"; }
-    else if(v.length < 8) { lblStrength.innerText = "Mật khẩu: Trung bình ⚠️"; lblStrength.style.color="orange"; }
-    else { lblStrength.innerText = "Mật khẩu: Mạnh  🔥"; lblStrength.style.color="green"; }
-});
-
-// Khớp mật khẩu
-inpConfirm.addEventListener("input", () => {
-    const khop = inpConfirm.value === inpPass.value;
-    document.getElementById("ctrlConfirm").className = khop ? "control dung" : "control sai";
-});
-
-// Gửi thẳng lên Firebase Realtime Database
+// Logic Submit Form Đăng Ký
 document.getElementById("dkForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (inpConfirm.value !== inpPass.value) return alert("Xác nhận mật khẩu sai!");
-    
-    const u = inpUser.value.trim();
-    const userRef = ref(db, 'users/' + u);
-    
-    // Check trùng tài khoản thời gian thực
-    const snap = await get(userRef);
-    if(snap.exists()) return alert("Tên đăng nhập này đã tồn tại trên hệ thống!");
 
-    await set(userRef, {
-        username: u,
-        displayName: document.getElementById("inpDisplay").value,
-        contact: document.getElementById("inpContact").value,
-        password: inpPass.value,
-        pin: document.getElementById("inpPin").value,
-        avatar: strAvt || "../../../Icons/avtreg.png",
-        status: "🌱 Đang trực tuyến",
-        diary: "Chào mừng đến với trang cá nhân của tôi!"
-    });
+    const username = document.getElementById("inpUser").value.trim();
+    const displayName = document.getElementById("inpDisplay").value.trim();
+    const password = document.getElementById("inpPass").value;
+    const confirmPass = document.getElementById("inpConfirm").value;
+    const pin = document.getElementById("inpPin").value;
+    const contact = document.getElementById("inpContact").value.trim();
 
-    alert("Đăng ký tài khoản REAL-TIME thành công!");
-    window.location.href = "../Dangnhap/dn.html";
+    if (password !== confirmPass) {
+        showToastTop("Mật khẩu xác nhận không trùng khớp!", "warning");
+        return;
+    }
+
+    try {
+        const userRef = ref(db, 'users/' + username);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+            showModalCenter("ĐĂNG KÝ THẤT BẠI", "Tên đăng nhập này đã có người sử dụng!", "error");
+        } else {
+            // Lưu thông tin người dùng mới vào Database
+            await set(userRef, {
+                username: username,
+                displayName: displayName,
+                password: password,
+                pin: pin,
+                contact: contact,
+                avatar: "",
+                status: "Thành viên mới",
+                diary: ""
+            });
+
+            showModalCenter("ĐĂNG KÝ THÀNH CÔNG", "Tài khoản của bạn đã được khởi tạo thành công!", "success");
+            
+            setTimeout(() => {
+                window.location.href = "/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.html";
+            }, 2000);
+        }
+    } catch (error) {
+        console.error(error);
+        showToastTop("Lỗi hệ thống không thể đăng ký!", "error");
+    }
 });
