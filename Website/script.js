@@ -16,11 +16,12 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const messaging = getMessaging(app);
 
-// Khóa VAPID thật của bạn đã cấu hình xong
 const VAPID_KEY = "BJjbtEkO0g86Qiy48CtMWvzYZ3iNsUBXVVbxWr7LPXDKApti5r7rMNRvCdeOdJZtWHPCpq9QcCB2uJtOozjNaVE";
 
 document.addEventListener("DOMContentLoaded", () => {
     const authArea = document.getElementById("authArea");
+    
+    // ĐỌC TRẠNG THÁI: Lấy user đã đăng nhập từ localStorage ra
     const loggedInUser = localStorage.getItem("loggedInUser");
 
     if (loggedInUser) {
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.addEventListener("click", () => { dropdown.style.display = "none"; });
                 
                 document.getElementById("btnLogOut").addEventListener("click", () => {
+                    // Khi Log out thì xóa sạch trạng thái đăng nhập
                     localStorage.removeItem("loggedInUser");
                     window.location.reload();
                 });

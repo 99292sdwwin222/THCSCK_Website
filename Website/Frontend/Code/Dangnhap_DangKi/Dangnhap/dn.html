@@ -4,9 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập || THCS Cự Khê</title>
+    <link rel="stylesheet" href="/notify.css">
     <link rel="stylesheet" href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.css">
+    
+    <style>
+        /* Bo tròn và hiệu ứng Hover mượt mà cho UI Đăng Nhập theo yêu cầu */
+        .card {
+            border-radius: 12px !important; /* Bo tròn khung thẻ đăng nhập */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .control input {
+            border-radius: 8px !important; /* Bo tròn các ô Input nhập liệu */
+            transition: all 0.2s ease;
+        }
+        
+        .control input:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        }
+        
+        .btn-submit {
+            border-radius: 8px !important; /* Bo tròn nút bấm đăng nhập */
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Thêm hiệu ứng hover mượt mà cho nút bấm */
+        .btn-submit:hover {
+            background-color: #004085 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Giao diện vùng Nhớ tôi (Remember Me) */
+        .remember-me-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #555;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .remember-me-container input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
+    <div id="toast-container-top"></div>
+
     <div class="container" style="max-width: 400px;">
         <div class="card">
             <h2>ĐĂNG NHẬP</h2>
@@ -23,11 +77,20 @@
                     <label>Mã PIN:</label>
                     <input type="password" id="dnPin" maxlength="6" required>
                 </div>
+
+                <label class="remember-me-container">
+                    <input type="checkbox" id="chkRemember">
+                    <span>Nhớ tôi (Duy trì đăng nhập)</span>
+                </label>
+
                 <button type="submit" class="btn-submit">ĐĂNG NHẬP</button>
             </form>
-            <p style="text-align:center; margin-top:10px; font-size:0.85rem;">Chưa có tài khoản? <a href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.html">Đăng ký ngay</a></p>
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem;">
+                Chưa có tài khoản? <a href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.html">Đăng ký ngay</a>
+            </p>
         </div>
     </div>
+
     <script type="module" src="/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.js"></script>
 </body>
 </html>
