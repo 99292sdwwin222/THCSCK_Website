@@ -2,19 +2,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA39JgS-0RUYWgWPsOR-dQdISD2IE3dFlo",
-  authDomain: "thcsck-website.firebaseapp.com",
-  projectId: "thcsck-website",
-  storageBucket: "thcsck-website.firebasestorage.app",
-  messagingSenderId: "2526504564",
-  appId: "1:2526504564:web:7c6b25a314f029c1a0d321",
-  measurementId: "G-0WKFR8CJ09"
+    apiKey: "AIzaSyA39JgS-0RUYWgWPsOR-dQdISD2IE3dFlo",
+    authDomain: "thcsck-website.firebaseapp.com",
+    projectId: "thcsck-website",
+    storageBucket: "thcsck-website.firebasestorage.app",
+    messagingSenderId: "2526504564",
+    appId: "1:2526504564:web:7c6b25a314f029c1a0d321",
+    measurementId: "G-0WKFR8CJ09"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Nhúng hàm thông báo để sử dụng trong file này
+// Hàm thông báo Toast
 function showToastTop(message, type = "success") {
     const container = document.getElementById("toast-container-top");
     if (!container) return;
@@ -25,6 +25,7 @@ function showToastTop(message, type = "success") {
     setTimeout(() => { toast.remove(); }, 4000);
 }
 
+// Hàm thông báo Modal
 function showModalCenter(title, message, type = "success") {
     const overlay = document.createElement("div");
     overlay.className = "modal-notify-overlay";
@@ -44,6 +45,27 @@ function showModalCenter(title, message, type = "success") {
     overlay.querySelector("#modalCloseBtn").addEventListener("click", closeModal);
     const autoCloseTimeout = setTimeout(closeModal, 4000);
 }
+
+// Logic hiển thị ảnh xem trước (Avatar Preview)
+const fileInp = document.getElementById("fileInp");
+const imgView = document.getElementById("imgView");
+
+fileInp.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+        if (!file.type.startsWith("image/")) {
+            showToastTop("Vui lòng chọn tệp tin hình ảnh!", "warning");
+            this.value = ""; 
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imgView.src = e.target.result; 
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
 // Logic Submit Form Đăng Ký
 document.getElementById("dkForm").addEventListener("submit", async (e) => {
@@ -68,14 +90,15 @@ document.getElementById("dkForm").addEventListener("submit", async (e) => {
         if (snapshot.exists()) {
             showModalCenter("ĐĂNG KÝ THẤT BẠI", "Tên đăng nhập này đã có người sử dụng!", "error");
         } else {
-            // Lưu thông tin người dùng mới vào Database
+            const avatarData = imgView.src.includes("data:image") ? imgView.src : "";
+
             await set(userRef, {
                 username: username,
                 displayName: displayName,
                 password: password,
                 pin: pin,
                 contact: contact,
-                avatar: "",
+                avatar: avatarData,
                 status: "Thành viên mới",
                 diary: ""
             });

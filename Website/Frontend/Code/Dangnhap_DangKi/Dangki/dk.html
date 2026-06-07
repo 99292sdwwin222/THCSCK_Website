@@ -7,18 +7,23 @@
     <link rel="stylesheet" href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.css">
 </head>
 <body>
+    <div id="toast-container-top"></div>
+
     <div class="container">
         <div class="card">
             <h2>ĐĂNG KÝ THÀNH VIÊN</h2>
             <form id="dkForm">
                 <div class="layout-grid">
                     <div class="left-avt">
-                        <div class="avt-frame" id="avtFrame">
+                        <label for="fileInp" class="avt-frame-circle">
                             <img id="imgView" src="/Frontend/Icons/avtreg.png" alt="Avatar">
-                        </div>
-                        <label for="fileInp" class="lbl-upload">Tải ảnh lên</label>
-                        <input type="file" id="fileInp" accept="image/*" style="display:none;">
+                            <div class="avt-overlay">
+                                <span>📷 Tải ảnh lên</span>
+                            </div>
+                        </label>
+                        <input type="file" id="fileInp" accept="image/*" hidden>
                     </div>
+                    
                     <div class="right-fields">
                         <div class="control" id="ctrlUser">
                             <label>Tên đăng nhập (Chỉ dùng số, chữ, _ và .):</label>
@@ -51,6 +56,7 @@
             </form>
         </div>
     </div>
-    <script type="module" src="/Frontend/Code/Dangnhap_Dangki/Dangki/dk.js"></script>
+    
+    <script type="module" src="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.js"></script>
 </body>
 </html>
