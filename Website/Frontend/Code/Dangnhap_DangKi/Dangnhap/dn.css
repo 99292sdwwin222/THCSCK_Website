@@ -1,20 +1,128 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
-body { background: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-.container { width: 100%; max-width: 450px; } /* Bo gọn khung vừa vặn cho form đăng nhập */
-.card { background: white; padding: 40px 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-h2 { text-align: center; margin-bottom: 30px; color: #0056b3; font-size: 1.6rem; font-weight: 800; letter-spacing: 0.5px; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Nunito', sans-serif; 
+}
 
-.control { margin-bottom: 20px; }
-.control label { display: block; font-size: 0.9rem; margin-bottom: 6px; font-weight: 700; color: #444; }
-.control input { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; outline: none; transition: all 0.3s ease; font-weight: 600; font-size: 0.95rem; }
-.control input:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
+body { 
+    background: #eef2f7; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    padding: 15px; 
+}
 
-.btn-submit { width: 100%; background: linear-gradient(135deg, #0056b3, #004494); color: white; border: none; padding: 14px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: 800; margin-top: 15px; transition: transform 0.2s, box-shadow 0.2s; }
-.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,86,179,0.4); }
+.container { 
+    width: 100%; 
+    max-width: 400px; /* Điều chỉnh thành 400px vừa vặn theo form mới của bạn */
+} 
 
-.form-footer { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666; font-weight: 600; }
-.form-footer a { color: #0056b3; text-decoration: none; font-weight: 700; transition: color 0.2s; }
-.form-footer a:hover { color: #004494; text-decoration: underline; }
+.card { 
+    background: white; 
+    padding: 40px 35px; 
+    border-radius: 12px; /* Đã sửa thành bo tròn 12px mượt mà */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
+}
+
+h2 { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    color: #0056b3; 
+    font-size: 1.6rem; 
+    font-weight: 800; 
+    letter-spacing: 0.5px; 
+}
+
+.control { 
+    margin-bottom: 20px; 
+}
+
+.control label { 
+    display: block; 
+    font-size: 0.9rem; 
+    margin-bottom: 6px; 
+    font-weight: 700; 
+    color: #444; 
+}
+
+.control input { 
+    width: 100%; 
+    padding: 12px 15px; 
+    border: 2px solid #ddd; 
+    border-radius: 8px; /* Bo tròn các ô nhập liệu 8px */
+    outline: none; 
+    transition: all 0.2s ease; 
+    font-weight: 600; 
+    font-size: 0.95rem; 
+}
+
+.control input:focus { 
+    border-color: #0056b3; 
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2); 
+}
+
+/* === Giao diện vùng Nhớ tôi (Remember Me) === */
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+}
+
+.remember-me-container input {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+.btn-submit { 
+    width: 100%; 
+    background: linear-gradient(135deg, #0056b3, #004494); 
+    color: white; 
+    border: none; 
+    padding: 14px; 
+    font-size: 1.1rem; 
+    border-radius: 8px; /* Bo tròn nút bấm 8px */
+    cursor: pointer; 
+    font-weight: 800; 
+    margin-top: 15px; 
+    transition: all 0.2s ease; 
+}
+
+/* Hiệu ứng hover mượt mà cho nút bấm */
+.btn-submit:hover { 
+    background: #004085; /* Đổi hẳn sang màu xanh tối chuẩn UI của bạn */
+    transform: translateY(-1px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+}
+
+.form-footer { 
+    text-align: center; 
+    margin-top: 20px; 
+    font-size: 0.9rem; 
+    color: #666; 
+    font-weight: 600; 
+}
+
+.form-footer a { 
+    color: #0056b3; 
+    text-decoration: none; 
+    font-weight: 700; 
+    transition: color 0.2s; 
+}
+
+.form-footer a:hover { 
+    color: #004085; 
+    text-decoration: underline; 
+}
 
 /* === CSS TOAST & MODAL ĐỒNG BỘ TUYỆT ĐỐI === */
 #toast-container-top { position: fixed; top: 20px; right: 20px; z-index: 9999; }
