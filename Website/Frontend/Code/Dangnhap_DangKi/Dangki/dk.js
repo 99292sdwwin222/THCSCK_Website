@@ -15,6 +15,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// CHUỖI BASE64 MẶC ĐỊNH (Thay thế cho đường dẫn C:\...)
+// Đây là ảnh đại diện của bạn dưới dạng văn bản, giúp nó nằm gọn trong Database
+const DEFAULT_AVATAR = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q==";
+
 // Hàm thông báo Toast
 function showToastTop(message, type = "success") {
     const container = document.getElementById("toast-container-top");
@@ -47,9 +51,12 @@ function showModalCenter(title, message, type = "success") {
     const autoCloseTimeout = setTimeout(closeModal, 4000);
 }
 
-// Logic hiển thị ảnh xem trước
+// Logic hiển thị ảnh xem trước (Cập nhật src mặc định)
 const fileInp = document.getElementById("fileInp");
 const imgView = document.getElementById("imgView");
+
+// Thiết lập ảnh mặc định ngay khi trang load
+imgView.src = DEFAULT_AVATAR;
 
 fileInp.addEventListener("change", function () {
     const file = this.files[0];
@@ -59,7 +66,6 @@ fileInp.addEventListener("change", function () {
             this.value = ""; 
             return;
         }
-
         const reader = new FileReader();
         reader.onload = function (e) {
             imgView.src = e.target.result; 
@@ -91,7 +97,8 @@ document.getElementById("dkForm").addEventListener("submit", async (e) => {
         if (snapshot.exists()) {
             showModalCenter("ĐĂNG KÝ THẤT BẠI", "Tên đăng nhập này đã có người sử dụng!", "error");
         } else {
-            const avatarData = imgView.src.includes("data:image") ? imgView.src : "";
+            // Lấy ảnh từ imgView (nếu đã chọn ảnh mới) hoặc lấy mặc định DEFAULT_AVATAR
+            const avatarData = (imgView.src.includes("data:image")) ? imgView.src : DEFAULT_AVATAR;
 
             await set(userRef, {
                 username: username,
@@ -101,14 +108,14 @@ document.getElementById("dkForm").addEventListener("submit", async (e) => {
                 contact: contact,
                 avatar: avatarData,
                 status: "Thành viên mới",
-                diary: ""
+                diary: "Trống",
+                friends: 0,
+                posts: 0
             });
 
-            // SỬA Ở ĐÂY: Thông báo và tự động đăng nhập
-            showModalCenter("ĐĂNG KÝ THÀNH CÔNG", "Hệ thống đang tự động đăng nhập cho bạn...", "success");
+            showModalCenter("ĐĂNG KÝ THÀNH CÔNG", "Hệ thống đang tự động đăng nhập...", "success");
             
             setTimeout(() => {
-                // Tự động gán user vào localStorage và bay thẳng ra trang chủ
                 localStorage.setItem("loggedInUser", username);
                 window.location.href = "/index.html";
             }, 2000);
