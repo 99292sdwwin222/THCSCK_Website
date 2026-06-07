@@ -4,64 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập || THCS Cự Khê</title>
-    <link rel="stylesheet" href="/notify.css">
-    <link rel="stylesheet" href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.css">
     
-    <style>
-        /* Bo tròn và hiệu ứng Hover mượt mà cho UI Đăng Nhập theo yêu cầu */
-        .card {
-            border-radius: 12px !important; /* Bo tròn khung thẻ đăng nhập */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        }
-        
-        .control input {
-            border-radius: 8px !important; /* Bo tròn các ô Input nhập liệu */
-            transition: all 0.2s ease;
-        }
-        
-        .control input:focus {
-            border-color: #0056b3;
-            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
-        }
-        
-        .btn-submit {
-            border-radius: 8px !important; /* Bo tròn nút bấm đăng nhập */
-            transition: all 0.2s ease;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        /* Thêm hiệu ứng hover mượt mà cho nút bấm */
-        .btn-submit:hover {
-            background-color: #004085 !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        /* Giao diện vùng Nhớ tôi (Remember Me) */
-        .remember-me-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 15px 0;
-            font-size: 0.9rem;
-            color: #555;
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        .remember-me-container input {
-            cursor: pointer;
-            width: 16px;
-            height: 16px;
-            margin: 0;
-        }
-    </style>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/notify.css">
+    <link rel="stylesheet" href="/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.css"> </head>
 <body>
     <div id="toast-container-top"></div>
 
-    <div class="container" style="max-width: 400px;">
+    <div class="container">
         <div class="card">
             <h2>ĐĂNG NHẬP</h2>
             <form id="dnForm">
