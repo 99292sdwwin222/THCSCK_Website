@@ -8,7 +8,8 @@ const firebaseConfig = {
     storageBucket: "thcsck-website.firebasestorage.app",
     messagingSenderId: "2526504564",
     appId: "1:2526504564:web:7c6b25a314f029c1a0d321",
-    measurementId: "G-0WKFR8CJ09"
+    measurementId: "G-0WKFR8CJ09",
+    databaseURL: "https://thcsck-website-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
 const app = initializeApp(firebaseConfig);
