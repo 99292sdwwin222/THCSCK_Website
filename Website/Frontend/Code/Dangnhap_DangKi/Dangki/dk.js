@@ -20,7 +20,7 @@ function showToastTop(message, type = "success") {
     if (!container) return;
     const toast = document.createElement("div");
     toast.className = `toast-top ${type}`;
-    toast.innerHTML = `<span>${message}</span><div class="toast-progress"></div>`;
+    toast.innerHTML = `<span>${message}</span>`;
     container.appendChild(toast);
     setTimeout(() => { toast.remove(); }, 4000);
 }
@@ -46,7 +46,7 @@ function showModalCenter(title, message, type = "success") {
     const autoCloseTimeout = setTimeout(closeModal, 4000);
 }
 
-// Logic hiển thị ảnh xem trước (Avatar Preview)
+// Logic hiển thị ảnh xem trước
 const fileInp = document.getElementById("fileInp");
 const imgView = document.getElementById("imgView");
 
@@ -103,10 +103,13 @@ document.getElementById("dkForm").addEventListener("submit", async (e) => {
                 diary: ""
             });
 
-            showModalCenter("ĐĂNG KÝ THÀNH CÔNG", "Tài khoản của bạn đã được khởi tạo thành công!", "success");
+            // SỬA Ở ĐÂY: Thông báo và tự động đăng nhập
+            showModalCenter("ĐĂNG KÝ THÀNH CÔNG", "Hệ thống đang tự động đăng nhập cho bạn...", "success");
             
             setTimeout(() => {
-                window.location.href = "/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.html";
+                // Tự động gán user vào localStorage và bay thẳng ra trang chủ
+                localStorage.setItem("loggedInUser", username);
+                window.location.href = "/index.html";
             }, 2000);
         }
     } catch (error) {

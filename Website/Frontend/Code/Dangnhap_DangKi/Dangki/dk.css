@@ -1,92 +1,92 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
 body { background: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-.container { width: 100%; max-width: 750px; }
-.card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-h2 { text-align: center; margin-bottom: 20px; color: #0056b3; font-size: 1.5rem; }
+.container { width: 100%; max-width: 800px; }
+.card { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+h2 { text-align: center; margin-bottom: 25px; color: #0056b3; font-size: 1.8rem; font-weight: 800; }
 
-.layout-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+.layout-grid { display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start; }
 
-/* === CSS MỚI CHO AVATAR TRÒN === */
+/* === CSS MỚI CHO AVATAR VUÔNG BO GÓC === */
 .left-avt { 
     flex: 1; 
-    min-width: 180px; 
+    min-width: 220px; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    justify-content: center; 
+    justify-content: flex-start; 
 }
 
-.avt-frame-circle {
-    position: relative;
-    width: 140px; 
-    height: 140px;
+.avt-frame-square {
+    width: 200px; 
+    height: 200px;
     border: 3px dashed #0056b3;
-    border-radius: 50%; /* Bo tròn */
+    border-radius: 15px; /* Bo tròn 1 chút */
     overflow: hidden;
-    cursor: pointer;
     background-color: #f3f7fd;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.avt-frame-circle:hover {
-    border-color: #004494;
-}
-
-.avt-frame-circle img {
+.avt-frame-square img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Chống méo ảnh */
 }
 
-.avt-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
+/* Nút tải ảnh tách biệt */
+.btn-upload-avt {
+    background: #e0eafc;
+    color: #0056b3;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
     text-align: center;
-    padding: 15px 0;
-    font-size: 0.85rem;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    width: 100%;
 }
 
-.avt-frame-circle:hover .avt-overlay {
-    opacity: 1;
+.btn-upload-avt:hover {
+    background: #0056b3;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
 }
 /* ============================== */
 
-.right-fields { flex: 2; min-width: 280px; }
-.control { margin-bottom: 12px; }
-.control label { display: block; font-size: 0.85rem; margin-bottom: 4px; font-weight: bold; }
-.control input { width: 100%; padding: 8px; border: 2px solid #ccc; border-radius: 4px; outline: none; transition: border-color 0.2s; }
+.right-fields { flex: 2; min-width: 300px; }
+.control { margin-bottom: 15px; }
+.control label { display: block; font-size: 0.9rem; margin-bottom: 6px; font-weight: 700; color: #444;}
+.control input { width: 100%; padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; outline: none; transition: all 0.3s ease; font-weight: 600;}
+.control input:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
 
 /* Trạng thái nhập liệu */
 .sai input { border-color: #dc3545 !important; background-color: #fdf3f3; }
-.dung input { border-color: #0056b3 !important; background-color: #f3f7fd; }
+.dung input { border-color: #28a745 !important; background-color: #f4fdf6; }
 
-.strength { font-size: 0.8rem; display: block; margin-top: 2px; font-weight: bold; }
-.btn-submit { width: 100%; background: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 15px; transition: background 0.3s; }
-.btn-submit:hover { background: #004494; }
+.strength { font-size: 0.85rem; display: block; margin-top: 5px; font-weight: 700; }
+.btn-submit { width: 100%; background: linear-gradient(135deg, #0056b3, #004494); color: white; border: none; padding: 14px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: 800; margin-top: 20px; transition: transform 0.2s, box-shadow 0.2s; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,86,179,0.4); }
 
-@media (max-width: 600px) { .layout-grid { flex-direction: column; } }
+@media (max-width: 650px) { .layout-grid { flex-direction: column; align-items: center;} .right-fields { width: 100%;} }
 
-/* === CSS CƠ BẢN CHO TOAST & MODAL === */
+/* === CSS TOAST & MODAL GIỮ NGUYÊN NHƯNG ĐỔI BÓNG ĐỔ === */
 #toast-container-top { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-.toast-top { background: #333; color: #fff; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); animation: fadeIn 0.3s; }
+.toast-top { background: #333; color: #fff; padding: 15px 25px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: fadeIn 0.3s; font-weight: 600;}
 .toast-top.warning { background: #f0ad4e; }
 .toast-top.error { background: #d9534f; }
-.toast-top.success { background: #5cb85c; }
+.toast-top.success { background: #28a745; }
 
-.modal-notify-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000; }
-.modal-notify-card { background: white; padding: 25px; border-radius: 8px; text-align: center; max-width: 400px; width: 90%; position: relative; }
-.modal-notify-close-x { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-.modal-notify-icon { font-size: 3rem; margin-bottom: 10px; }
-.modal-notify-card.success .modal-notify-icon { color: #5cb85c; }
+.modal-notify-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 10000; }
+.modal-notify-card { background: white; padding: 30px; border-radius: 15px; text-align: center; max-width: 400px; width: 90%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
+.modal-notify-close-x { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #888; }
+.modal-notify-icon { font-size: 4rem; margin-bottom: 10px; }
+.modal-notify-card.success .modal-notify-icon { color: #28a745; }
 .modal-notify-card.error .modal-notify-icon { color: #d9534f; }
-.modal-notify-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; }
-.modal-notify-btn { margin-top: 15px; padding: 8px 20px; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.modal-notify-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: #333;}
+.modal-notify-text { font-size: 1rem; color: #555; }
+.modal-notify-btn { margin-top: 20px; padding: 10px 25px; background: #0056b3; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;}
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }

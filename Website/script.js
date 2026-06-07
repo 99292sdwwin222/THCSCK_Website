@@ -21,7 +21,7 @@ const VAPID_KEY = "BJjbtEkO0g86Qiy48CtMWvzYZ3iNsUBXVVbxWr7LPXDKApti5r7rMNRvCdeOd
 document.addEventListener("DOMContentLoaded", () => {
     const authArea = document.getElementById("authArea");
     
-    // ĐỌC TRẠNG THÁI: Lấy user đã đăng nhập từ localStorage ra
+    // ĐỌC TRẠNG THÁI: Lấy user đã đăng nhập từ localStorage ra (Đã đăng nhập từ Đăng Ký)
     const loggedInUser = localStorage.getItem("loggedInUser");
 
     if (loggedInUser) {
@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = snapshot.val();
             if (data) {
                 const avt = data.avatar || "/Frontend/Icons/avtreg.png";
+                
+                // RENDER GIAO DIỆN CHUNG 1 DÒNG
                 authArea.innerHTML = `
                     <div class="user-profile-header" id="profileTrigger">
                         <img src="${avt}" class="avatar-header" alt="Avatar" onerror="this.src='/Frontend/Icons/avtreg.png'">
@@ -40,8 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         
                         <div class="profile-dropdown" id="profileDropdown">
                             <div class="dropdown-block" style="text-align: center;">
-                                <img src="${avt}" style="width:70px; height:70px; border-radius:5px; object-fit:cover;" onerror="this.src='/Frontend/Icons/avtreg.png'"><br>
-                                <strong>${data.displayName}</strong> | <span>@${data.username}</span>
+                                <img src="${avt}" style="width:80px; height:80px; border-radius:10px; object-fit:cover; margin-bottom:10px;" onerror="this.src='/Frontend/Icons/avtreg.png'"><br>
+                                <strong style="font-size:1.2rem;">${data.displayName}</strong><br>
+                                <span style="color:#666;">@${data.username}</span>
                             </div>
                             <div class="dropdown-block">
                                 <strong>Trạng thái:</strong> <span>${data.status || "Chưa thiết lập"}</span>
@@ -49,12 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="dropdown-block">
                                 <strong>Nhật ký:</strong> <span>${data.diary || "Trống"}</span>
                             </div>
-                            <div class="dropdown-block" style="display:flex; justify-content:space-between;">
+                            <div class="dropdown-block" style="display:flex; justify-content:space-between; font-weight:bold;">
                                 <span>👥 Bạn bè: 0</span>
                                 <span>📝 Bài đăng: 0</span>
                             </div>
                             <div class="dropdown-block">
-                                <button id="btnLogOut" style="width:100%; padding:8px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer;">Đăng xuất</button>
+                                <button id="btnLogOut" style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size:1rem; transition: background 0.3s;">Đăng xuất</button>
                             </div>
                         </div>
                     </div>
@@ -62,14 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const trigger = document.getElementById("profileTrigger");
                 const dropdown = document.getElementById("profileDropdown");
+                
+                // Logic bật tắt dropdown
                 trigger.addEventListener("click", (e) => {
                     e.stopPropagation();
                     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
                 });
+                
                 document.addEventListener("click", () => { dropdown.style.display = "none"; });
                 
+                // Logic đăng xuất
                 document.getElementById("btnLogOut").addEventListener("click", () => {
-                    // Khi Log out thì xóa sạch trạng thái đăng nhập
                     localStorage.removeItem("loggedInUser");
                     window.location.reload();
                 });

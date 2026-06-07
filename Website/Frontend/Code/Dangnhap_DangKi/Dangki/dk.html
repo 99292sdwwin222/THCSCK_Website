@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký || THCS Cự Khê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Frontend/Code/Dangnhap_DangKi/Dangki/dk.css">
 </head>
 <body>
@@ -15,11 +16,11 @@
             <form id="dkForm">
                 <div class="layout-grid">
                     <div class="left-avt">
-                        <label for="fileInp" class="avt-frame-circle">
+                        <div class="avt-frame-square">
                             <img id="imgView" src="/Frontend/Icons/avtreg.png" alt="Avatar">
-                            <div class="avt-overlay">
-                                <span>📷 Tải ảnh lên</span>
-                            </div>
+                        </div>
+                        <label for="fileInp" class="btn-upload-avt">
+                            📷 Chọn ảnh đại diện
                         </label>
                         <input type="file" id="fileInp" accept="image/*" hidden>
                     </div>
@@ -30,7 +31,7 @@
                             <input type="text" id="inpUser" required>
                         </div>
                         <div class="control">
-                            <label>Tên hiển thị (Có thể dùng emoji và ký tự đặc biệt):</label>
+                            <label>Tên hiển thị (Có thể dùng emoji & ký tự đặc biệt):</label>
                             <input type="text" id="inpDisplay" required>
                         </div>
                         <div class="control">
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
+                <button type="submit" class="btn-submit">ĐĂNG KÝ NGAY</button>
             </form>
         </div>
     </div>
