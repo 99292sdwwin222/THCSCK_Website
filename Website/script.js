@@ -22,6 +22,10 @@ const VAPID_KEY = "BJjbtEkO0g86Qiy48CtMWvzYZ3iNsUBXVVbxWr7LPXDKApti5r7rMNRvCdeOd
 document.addEventListener("DOMContentLoaded", () => {
     const authArea = document.getElementById("authArea");
     
+    const logo = document.querySelector(".school-logo");
+    if (logo) {
+        logo.addEventListener("click", handleLogoClick);
+    }
     // ĐỌC TRẠNG THÁI: Lấy user đã đăng nhập từ localStorage ra (Đã đăng nhập từ Đăng Ký)
     const loggedInUser = localStorage.getItem("loggedInUser");
 
@@ -108,4 +112,29 @@ if ('serviceWorker' in navigator) {
     }).catch((err) => {
         console.error('Lỗi SW:', err);
     });
+}
+
+// --- LOGIC TRUY CẬP ADMIN ẨN ---
+let clickCount = 0;
+let lastClickTime = 0;
+
+function handleLogoClick() {
+    const currentTime = new Date().getTime();
+    
+    // Nếu khoảng cách giữa các lần bấm > 800ms thì reset bộ đếm
+    if (currentTime - lastClickTime > 800) {
+        clickCount = 0;
+    }
+    
+    clickCount++;
+    lastClickTime = currentTime;
+
+    // Khi đủ 10 lần bấm
+    if (clickCount === 10) {
+        const password = prompt("Admin access:");
+        if (password === "thcsckadminpnl2014@") {
+            window.location.href = "/Frontend/Admin/adpn.html";
+        }
+        clickCount = 0; // Reset sau khi đã thử
+    }
 }
