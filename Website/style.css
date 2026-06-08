@@ -10,7 +10,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* Đổi toàn bộ font hệ thống sang Nunito */
     font-family: 'Nunito', 'Segoe UI', sans-serif;
 }
 
@@ -33,18 +32,16 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    flex-direction: row; /* Bắt buộc xếp thành 1 hàng ngang */
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-    flex-wrap: nowrap; /* Không cho rớt dòng */
 }
 
 .logo-area {
     display: flex;
     align-items: center;
     gap: 12px;
-    min-width: fit-content;
+    z-index: 2000;
 }
 
 .school-logo {
@@ -53,6 +50,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .school-name {
@@ -62,13 +60,19 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* --- CẤU TRÚC MENU --- */
+.sidebar-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 .nav-links {
     display: flex;
     gap: 25px;
     align-items: center;
 }
 
-/* Hiệu ứng hover menu xịn xò */
 .nav-links a {
     text-decoration: none;
     color: #555;
@@ -120,7 +124,7 @@ body {
     box-shadow: 0 6px 15px rgba(0, 86, 179, 0.4);
 }
 
-/* === Giao diện User Header Mới Nằm Ngang === */
+/* === USER PROFILE === */
 .user-profile-header {
     display: flex;
     align-items: center;
@@ -165,7 +169,6 @@ body {
     font-weight: 600;
 }
 
-/* Menu Dropdown */
 .profile-dropdown {
     position: absolute;
     top: 60px;
@@ -198,6 +201,7 @@ body {
     padding-bottom: 0;
 }
 
+/* --- MAIN CONTENT --- */
 .main-content {
     max-width: 1200px;
     margin: 40px auto;
@@ -215,18 +219,104 @@ body {
 
 .welcome-banner h1 {
     font-weight: 800;
-    color: #0056b3;
+    color: var(--primary-color);
     margin-bottom: 15px;
     font-size: 2.2rem;
 }
 
-/* Responsive - Giữ cấu trúc tốt nhất có thể trên đt */
-@media (max-width: 1100px) {
-    .nav-links { gap: 15px; }
-    .school-name { display: none; /* Ẩn tên trường trên màn nhỏ để lấy chỗ */ }
+/* --- HAMBURGER BUTTON --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 2001; /* Nổi trên sidebar */
 }
 
-@media (max-width: 850px) {
-    .header-container { flex-wrap: wrap; justify-content: space-between; }
-    .nav-links { order: 3; width: 100%; justify-content: center; margin-top: 10px; }
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 6px 0;
+    transition: 0.3s;
+    border-radius: 3px;
+}
+
+/* --- RESPONSIVE MOBILE TỪ A-Z --- */
+@media (max-width: 950px) {
+    .hamburger { display: block; }
+    
+    .school-name { display: none; /* Ẩn tên để tối ưu không gian mobile */ }
+    
+    /* Giao diện thanh Sidebar trượt từ bên phải */
+    .sidebar-menu {
+        position: fixed;
+        top: 0;
+        right: -350px; /* Ẩn ra khỏi màn hình */
+        width: 300px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 20px 30px 20px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1500;
+        overflow-y: auto;
+    }
+
+    .sidebar-menu.active {
+        right: 0; /* Hiện ra */
+    }
+
+    /* Bố cục Auth (Hiển thị User) trên Sidebar */
+    .auth-area {
+        width: 100%;
+        order: 1; /* Đưa Profile lên trên cùng */
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 15px;
+    }
+
+    .user-profile-header {
+        border-radius: 10px;
+    }
+
+    /* Thay đổi dropdown thành mở trực tiếp bên dưới tên trên Mobile */
+    .profile-dropdown {
+        position: relative;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #eee;
+        margin-top: 10px;
+        padding: 15px;
+    }
+
+    /* Bố cục Menu Navigation trên Sidebar */
+    .nav-links {
+        order: 2; /* Các chức năng/link ở dưới */
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .nav-links a {
+        width: 100%;
+        padding: 15px 10px;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-links a::after { display: none; } /* Tắt gạch chân trên điện thoại */
+
+    /* Hiệu ứng gạch chéo thành chữ X cho Hamburger khi click */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
 }

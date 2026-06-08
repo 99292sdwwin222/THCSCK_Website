@@ -20,13 +20,33 @@ const messaging = getMessaging(app);
 const VAPID_KEY = "BJjbtEkO0g86Qiy48CtMWvzYZ3iNsUBXVVbxWr7LPXDKApti5r7rMNRvCdeOdJZtWHPCpq9QcCB2uJtOozjNaVE";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const authArea = document.getElementById("authArea");
-    
+    // --- LOGIC HAMBURGER & SIDEBAR ---
+    const hamburger = document.getElementById("hamburger");
+    const sidebarMenu = document.getElementById("sidebarMenu");
+
+    if (hamburger && sidebarMenu) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            sidebarMenu.classList.toggle("active");
+        });
+
+        // Click ra ngoài thì đóng sidebar
+        document.addEventListener("click", (e) => {
+            if (!sidebarMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove("active");
+                sidebarMenu.classList.remove("active");
+            }
+        });
+    }
+
+    // --- LOGIC ADMIN SECRET CLICK ---
     const logo = document.querySelector(".school-logo");
     if (logo) {
         logo.addEventListener("click", handleLogoClick);
     }
-    // ĐỌC TRẠNG THÁI: Lấy user đã đăng nhập từ localStorage ra (Đã đăng nhập từ Đăng Ký)
+
+    // --- LOGIC FIREBASE & USER PROFILE ---
+    const authArea = document.getElementById("authArea");
     const loggedInUser = localStorage.getItem("loggedInUser");
 
     if (loggedInUser) {
@@ -36,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data) {
                 const avt = data.avatar || "/Frontend/Icons/avtreg.png";
                 
-                // RENDER GIAO DIỆN CHUNG 1 DÒNG
                 authArea.innerHTML = `
                     <div class="user-profile-header" id="profileTrigger">
                         <img src="${avt}" class="avatar-header" alt="Avatar" onerror="this.src='/Frontend/Icons/avtreg.png'">
@@ -71,15 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const trigger = document.getElementById("profileTrigger");
                 const dropdown = document.getElementById("profileDropdown");
                 
-                // Logic bật tắt dropdown
+                // Bật/tắt dropdown tài khoản
                 trigger.addEventListener("click", (e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); // Tránh bị xung đột với sự kiện click ở ngoài
                     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
                 });
                 
-                document.addEventListener("click", () => { dropdown.style.display = "none"; });
-                
-                // Logic đăng xuất
+                // Đăng xuất
                 document.getElementById("btnLogOut").addEventListener("click", () => {
                     localStorage.removeItem("loggedInUser");
                     window.location.reload();
@@ -91,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// --- HÀM THÔNG BÁO ---
 function yêuCầuCấpQuyềnThôngBáo(username) {
     Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {

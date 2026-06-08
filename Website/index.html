@@ -14,15 +14,25 @@
                 <img src="/Frontend/Icons/icon.png" alt="Logo" class="school-logo" onerror="this.src='https://via.placeholder.com/40'">
                 <span class="school-name">THCS Cự Khê</span>
             </div>
-            <nav class="nav-links">
-                <a href="/index.html" class="active">Trang chủ</a>
-                <a href="/Frontend/Code/Html/tin_tuc_su_kien.html">Tin tức & Sự kiện</a>
-                <a href="/Frontend/Code/Html/anh_va_video.html">Ảnh và Video</a>
-                <a href="/Frontend/Code/Html/dien_dan.html">Diễn đàn</a>
-                <a href="/Frontend/Code/Html/ket_noi.html">Kết Nối</a>
-            </nav>
-            <div class="auth-area" id="authArea">
-                <a href="/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.html" class="btn-auth">Đăng nhập / Đăng ký</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="sidebar-menu" id="sidebarMenu">
+                <div class="auth-area" id="authArea">
+                    <a href="/Frontend/Code/Dangnhap_DangKi/Dangnhap/dn.html" class="btn-auth">Đăng nhập / Đăng ký</a>
+                </div>
+
+                <nav class="nav-links">
+                    <a href="/index.html" class="active">Trang chủ</a>
+                    <a href="/Frontend/Code/Html/tin_tuc_su_kien.html">Tin tức & Sự kiện</a>
+                    <a href="/Frontend/Code/Html/anh_va_video.html">Ảnh và Video</a>
+                    <a href="/Frontend/Code/Html/dien_dan.html">Diễn đàn</a>
+                    <a href="/Frontend/Code/Html/ket_noi.html">Kết Nối</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -35,14 +45,14 @@
     </main>
 
     <div id="adminModal" class="modal-notify-overlay" style="display:none;">
-    <div class="modal-notify-card">
-        <h3 class="modal-notify-title">Xác thực Admin</h3>
-        <input type="password" id="adminPassInput" placeholder="Nhập mật khẩu..." 
-               style="width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
-        <button id="btnSubmitAdmin" class="modal-notify-btn" style="background:#2ecc71; color:white;">Truy cập</button>
-        <button id="btnCloseAdmin" class="modal-notify-btn" style="background:#ccc; color:white; margin-top:10px;">Đóng</button>
+        <div class="modal-notify-card">
+            <h3 class="modal-notify-title">Xác thực Admin</h3>
+            <input type="password" id="adminPassInput" placeholder="Nhập mật khẩu..." 
+                   style="width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+            <button id="btnSubmitAdmin" class="modal-notify-btn" style="background:#2ecc71; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Truy cập</button>
+            <button id="btnCloseAdmin" class="modal-notify-btn" style="background:#ccc; color:white; margin-top:10px; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Đóng</button>
+        </div>
     </div>
-</div>
 
     <script type="module" src="/script.js"></script>
 </body>
